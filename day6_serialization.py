@@ -9,6 +9,6 @@ router_config = {
     "is_active": True
 }
 
-# now i want to convert this python dictionary to json
+# now i want to convert this python dictionary to json and i converted python only readable to universal readable format
 json_payload = json.dumps(router_config, indent=4)
 print(json_payload) 
