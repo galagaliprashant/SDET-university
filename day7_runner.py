@@ -1,27 +1,22 @@
 from api_framework.api_client import APIClient
+from api_framework.schemas import user_schema
+from jsonschema import validate, ValidationError
 
-client = APIClient("https://dummyjson.com")
+client = APIClient("https://reqres.in/api")
 
-import json
+print("\n--- TEST 1: GET User + Schema Validation ---")
+response = client.get_user(2)
 
-print("--- TEST 1: GET ---")
-# DummyJSON has a user with ID 1
-resp = client.get_user(1)
-print(f"Status: {resp.status_code}")
-try:
-    print("Response Body:")
-    print(json.dumps(resp.json(), indent=4))
-except json.JSONDecodeError:
-    print(f"Failed to decode JSON. Raw Text: {resp.text}")
+# 1. Check Status (Basic)
+if response.status_code == 200:
+    print("✅ Status 200 OK")
 
-print("\n--- TEST 2: POST ---")
-# DummyJSON CREATE might fail with the current APIClient structure (which uses /users), 
-# but let's try it. DummyJSON expects /users/add for creation, 
-# so we might see a 404, but at least it should be JSON!
-resp = client.create_user("SDET_Candidate", "Lead")
-print(f"Status: {resp.status_code}")
-try:
-    print("Response Body:")
-    print(json.dumps(resp.json(), indent=4))
-except json.JSONDecodeError:
-    print(f"Failed to decode JSON. Raw Text: {resp.text}")
+    # 2. Check Data Structure (Advanced)
+    try:
+        json_data = response.json()
+        validate(instance=json_data, schema=user_schema)
+        print("✅ Schema Validation Passed (Data format is correct)")
+    except ValidationError as e:
+        print(f"❌ Schema Validation FAILED: {e.message}")
+else:
+    print(f"❌ HTTP Fail: {response.status_code}")
