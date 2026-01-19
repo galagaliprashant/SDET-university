@@ -1,0 +1,10 @@
+device:
+  name: "Nokia_7750_SR"
+  role: "Edge_Router"
+  location: "Bangalore_DC"
+
+interfaces:
+  - name: "eth0"
+    ip: "10.0.0.1"
+  - name: "eth1"
+    ip: "10.0.0.2"
