@@ -1,0 +1,2 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"Verify the app launches and reaches the MainActivity","10488","test_app_launch_and_activity","qa-fullstack-portfoli","2026-02-10","passed","2026-02-10","TestMobileAutomation","test_mobile_cloud","",""
